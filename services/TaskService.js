@@ -51,7 +51,10 @@ const getAlltask = () => new Promise(
   async (resolve, reject) => {
     try {
       let query = {}
-      query = await Task.find().populate(['taskEmployee']).exec();
+      query = await Task.find()
+      .populate({
+        path: 'taskEmployee'        })
+      .exec();
       // this is a test
       resolve(Service.successResponse(query));
     } catch (e) {
@@ -72,7 +75,10 @@ const getByParamstask = ({ filter }) => new Promise(
   async (resolve, reject) => {
     try {
       let query = {}
-      query = await Task.find(JSON.parse( filter )).populate(['taskEmployee']).exec();
+      query = await Task.find(JSON.parse( filter ))
+      .populate({
+        path: 'taskEmployee'        })
+      .exec();
       // this is a test
       resolve(Service.successResponse(query));
     } catch (e) {
@@ -94,7 +100,10 @@ const gettask = ({ taskId }) => new Promise(
     try {
       let query = {};
       query = await Task.findById(taskId)
-      .populate(['taskEmployee']).exec();
+      
+      .populate({
+        path: 'taskEmployee'        })
+      .exec();
       resolve(Service.successResponse({ query,}));
     } catch (e) {
       reject(Service.rejectResponse(
